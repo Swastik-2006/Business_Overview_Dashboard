@@ -1,0 +1,97 @@
+table Sheet1
+	lineageTag: 41b4e7e9-60e5-42bf-8ac3-86c8f517f35a
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f23ca708-19d9-44a1-86a5-f2a1f5c35032
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Region
+		dataType: string
+		lineageTag: 3f7dffc7-4e8d-41da-b738-01ffd46870a9
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 296e801a-20e2-4291-8c09-524bdf4e541d
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product
+		dataType: string
+		lineageTag: 0cc81155-2aa9-459f-ab5e-9218c209cc22
+		summarizeBy: none
+		sourceColumn: Product
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sales
+		dataType: int64
+		formatString: 0
+		lineageTag: 62f403c1-68e2-4ab1-b31c-04ccb39b314e
+		summarizeBy: sum
+		sourceColumn: Sales
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cost
+		dataType: int64
+		formatString: 0
+		lineageTag: a3458c62-5de2-42a5-9c98-dc5ac45ba09f
+		summarizeBy: sum
+		sourceColumn: Cost
+
+		annotation SummarizationSetBy = Automatic
+
+	column Profit = Sheet1[Sales] - Sheet1[Cost]
+		formatString: 0
+		lineageTag: 85126912-af3a-4ce5-a8cb-7f4476916410
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Profit Status' = IF(Sheet1[Profit] > 15000, "High", "Low")
+		lineageTag: a21e8147-400c-4fa0-8000-d88cac0d51b8
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Profit Category' =
+			
+			SWITCH(
+			    TRUE(),
+			    Sheet1[Profit] >= 30000, "Good",
+			    Sheet1[Profit] >= 15000, "Moderate",
+			    "Poor"
+			)
+		lineageTag: 4af4abd6-b1ab-4398-b100-8bb2e3493457
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sheet1 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\SWASTIK\OneDrive\Desktop\Business_Data.xlsx"), null, true),
+				    Sheet1_Sheet = Source{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}, {"Region", type text}, {"Category", type text}, {"Product", type text}, {"Sales", Int64.Type}, {"Cost", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "3316d29824c57cd990af",
+  "position": {
+    "x": 15.094390190790467,
+    "y": 687.48086232600212,
+    "z": 11000,
+    "height": 32.933214961724651,
+    "width": 428.13179450242052,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Created by ",
+                    "textStyle": {
+                      "fontFamily": "Consolas",
+                      "fontSize": "12pt"
+                    }
+                  },
+                  {
+                    "value": "Swastik Kundu",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontFamily": "Consolas",
+                      "fontSize": "12pt"
+                    }
+                  },
+                  {
+                    "value": " | Power BI Dashboard",
+                    "textStyle": {
+                      "fontFamily": "Consolas",
+                      "fontSize": "12pt"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,46 @@
+table DateTable
+	lineageTag: 713f56c9-8497-4a48-ae85-93d656bce029
+
+	measure 'Total Sales' = SUM(Sheet1[Sales])
+		formatString: 0
+		lineageTag: 4f0d32c9-e45f-4e90-bd63-60c924658dbd
+
+	measure 'Sales Last Month' =
+			
+			CALCULATE(
+			    [Total Sales],
+			    PREVIOUSMONTH(DateTable[Date])
+			)
+		formatString: 0
+		lineageTag: 01367cf2-9c25-4657-aa61-b75dc0001567
+
+	measure 'MOM Growth %' =
+			
+			DIVIDE(
+			    [Total Sales] - [Sales Last Month],
+			    [Sales Last Month]
+			)
+		lineageTag: ef88fa8c-ad57-48b3-97e8-6fb91cc8216a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Date
+		formatString: General Date
+		lineageTag: f2ae4acc-e77b-46a7-bf35-96358fc28858
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: 3fc6814d-6dd6-44fd-b484-ce83a6787a63
+			defaultHierarchy: LocalDateTable_b79adb0d-86f5-415b-9faa-04aada391442.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DateTable = calculated
+		mode: import
+		source = CALENDAR(MIN(Sheet1[Date]), MAX(Sheet1[Date]))
+
+	annotation PBI_Id = ebaaff5a8fd64642be0ef4802b9d0ed3
+
