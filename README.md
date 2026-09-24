@@ -12,10 +12,3 @@ To open, edit, or view the exact Power BI project on your computer, follow these
 3. **Open in Power BI Desktop:** Ensure you have the latest version of Power BI Desktop installed. Open the folder and double-click the `Business_Overview_Dashboard.pbip` file.
 
 ---
-
-## 🔍 Project Overview
-* **Objective:** *(Write 1 sentence about what this dashboard tracks, e.g., Analysing quarterly sales and regional team performance)*
-* **Data Sources:** *(e.g., Excel sheets, SQL database, or CSV files)*
-* **Key Metrics:** *(e.g., Total Revenue, Profit Margins, Year-over-Year Growth)*
-
----
